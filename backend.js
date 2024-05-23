@@ -1,4 +1,4 @@
-const auth = () => {
+const auth = async () => {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
@@ -14,14 +14,24 @@ const auth = () => {
     redirect: "follow"
   };
 
-  fetch("https://boatsandfun-marina.auth.us-east-1.amazoncognito.com/oauth2/token", requestOptions)
-    .then((response) => response.json())
-    .then((result) => console.log(result.access_token))
-    .catch((error) => console.error(error));
+  let obj 
+  const res = await fetch("https://boatsandfun-marina.auth.us-east-1.amazoncognito.com/oauth2/token", requestOptions)
+  .then(data => obj = data)
+    obj = await res.json();
+    console.log(obj)
+
+    return obj.access_token
 }
 
-const eventHandler = () => {
-  raw = {
+let token = auth()
+
+const eventHandler = async () => {
+  
+  let access_token = await token
+  console.log(access_token)
+
+
+   /*raw = {
     "startDate": "10/15/2024 09:00 AM",
     "endDate": "10/15/2024 05:00 PM",
     "productName": "24SD",
@@ -29,11 +39,16 @@ const eventHandler = () => {
     "lastName": "Araya",
     "email": "test@vquiprentals.com",
     "phone": "111-111-1111",
-  }
+    "externalBookingId": "my-external-booking-id",
+   }
+   */
+   if (access_token) {
+   const raw = "{\r\n    \"startDate\": \"10/15/2024 09:30 AM\",\r\n    \"endDate\": \"10/15/2022 05:30 PM\",\r\n    \"productId\": 1482,\r\n    \"firstName\": \"Bob\",\r\n    \"lastName\": \"Williamson\",\r\n    \"email\": \"test@vquiprentals.com\",\r\n    \"phone\": \"111-111-1111\",\r\n    \"bookingNotes\": \"Booking Notes\",\r\n    \"externalBookingId\": \"my-external-booking-id\"\r\n}";
+
 
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
-  myHeaders.append("Authorization", `Bearer ${data.access_token}`);
+  myHeaders.append("Authorization", `${access_token}`);
 
   const reqOptions = {
     method: "POST",
@@ -46,4 +61,8 @@ const eventHandler = () => {
     .then((response) => response.text())
     .then((result) => console.log(result))
     .catch((error) => console.error(error));
+
+    console.log(access_token)
+}
+    
 } 
