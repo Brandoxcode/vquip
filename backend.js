@@ -39,14 +39,14 @@ const eventHandler = async () => {
     "lastName": "Araya",
     "email": "test@vquiprentals.com",
     "phone": "111-111-1111",
-    "externalBookingId": "my-external-booking-id"
+    "externalBookingId": "my-external-booking"
    }
    
    if (access_token) {
    
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
-  myHeaders.append("Authorization", `${access_token}`);
+  myHeaders.append("Authorization", `Bearer ${access_token}`);
 
   const reqOptions = {
     method: "POST",
