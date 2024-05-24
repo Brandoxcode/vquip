@@ -31,7 +31,7 @@ const eventHandler = async () => {
   console.log(access_token)
 
 
-   /*raw = {
+   raw = {
     "startDate": "10/15/2024 09:00 AM",
     "endDate": "10/15/2024 05:00 PM",
     "productName": "24SD",
@@ -39,13 +39,11 @@ const eventHandler = async () => {
     "lastName": "Araya",
     "email": "test@vquiprentals.com",
     "phone": "111-111-1111",
-    "externalBookingId": "my-external-booking-id",
+    "externalBookingId": "my-external-booking-id"
    }
-   */
+   
    if (access_token) {
-   const raw = "{\r\n    \"startDate\": \"10/15/2024 09:30 AM\",\r\n    \"endDate\": \"10/15/2022 05:30 PM\",\r\n    \"productId\": 1482,\r\n    \"firstName\": \"Bob\",\r\n    \"lastName\": \"Williamson\",\r\n    \"email\": \"test@vquiprentals.com\",\r\n    \"phone\": \"111-111-1111\",\r\n    \"bookingNotes\": \"Booking Notes\",\r\n    \"externalBookingId\": \"my-external-booking-id\"\r\n}";
-
-
+   
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("Authorization", `${access_token}`);
