@@ -31,7 +31,7 @@ const eventHandler = async () => {
   console.log(access_token)
 
 
-   raw = {
+   raw = JSON.stringify({
     "startDate": "10/15/2024 09:00 AM",
     "endDate": "10/15/2024 05:00 PM",
     "productName": "24SD",
@@ -39,14 +39,13 @@ const eventHandler = async () => {
     "lastName": "Araya",
     "email": "test@vquiprentals.com",
     "phone": "111-111-1111",
-    "externalBookingId": "my-external-booking"
-   }
+    "externalBookingId": "my-external-bookan",
+   })
    
-   if (access_token) {
-   
+
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
-  myHeaders.append("Authorization", `Bearer ${access_token}`);
+  myHeaders.append("Authorization", `${access_token}`);
 
   const reqOptions = {
     method: "POST",
@@ -55,12 +54,13 @@ const eventHandler = async () => {
     redirect: "follow"
   };
 
+  try {
   fetch("https://api.vquip.io/rentals/api/v1/reservation", reqOptions)
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.error(error));
-
-    console.log(access_token)
-}
+    .then((response) => response.json())
+    .then((status) => console.log(status))
+  } catch (error) {
+    console.error(error);
+  }
     
 } 
+eventHandler()
